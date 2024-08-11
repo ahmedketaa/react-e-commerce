@@ -1,13 +1,17 @@
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 import "./App.css";
-import Signup from "./pages/signup/signup";
-import Login from "./pages/login/login";
+import Home from "./pages/Home/Home";
+// import Signup from "./pages/signup/signup";
+// import Login from "./pages/login/login";
+
+
 
 function App() {
   return (
     <>
-      <Signup />
-      <Login />
+      {/* <Signup /> */}
+      {/* <Login /> */}
+    <Home/>
     </>
   );
 }
