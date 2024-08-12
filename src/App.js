@@ -1,12 +1,21 @@
 import "./App.css";
-import Signup from "./pages/signup/signup";
-import Login from "./pages/login/login";
+import { BrowserRouter } from "react-router-dom";
+import NavBar from "./Components/NavBar";
+import Home from "./pages/Home/Home";
+import "primereact/resources/themes/lara-light-cyan/theme.css";
 
+        
 function App() {
   return (
     <>
-      <Signup />
-      <Login />
+    
+    <BrowserRouter>
+      <NavBar/>
+      <Home/>
+      {/* <Signup />
+      <Login /> */}
+      </BrowserRouter>
+
     </>
   );
 }
