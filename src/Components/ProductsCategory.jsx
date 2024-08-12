@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 function ProductsCategory() {
   return (
     <div>
-        <ul className=''>
+        <ul className='w-75' style={{borderRight:"1px solid #ccc"}}>
         {categories.map(category=>(
             <li className='nav-item my-2'>
               <Link className='nav-link' to={''}>{category}</Link>
