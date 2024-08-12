@@ -1,1 +1,22 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+*{
+    transition: .3s all ;
+}
+ul{
+    list-style: none;
+}
+.custom-heart-icon {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    color: #777;
+    font-size: 19px;
+    padding: 8px;
+    border-radius: 50%;
+    background-color: white;
+    cursor: pointer;
+}
+
+.custom-heart-icon:hover{
+    color: #DB4444;
+}
