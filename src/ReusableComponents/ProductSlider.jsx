@@ -58,7 +58,7 @@ export default function ProductSlider() {
                     <h6 className="mb-1  text-bold" style={{height:"", overflow:"hidden"}}>{product.name}</h6>
                     <p style={{color:"#DB4444"}} className="mt-2 mb-3">${Math.round(product.price)}</p>
                     <div className="mt-2 d-flex custom-rating flex-wrap gap-2 ">
-                    <Rating value={3} readOnly cancel={false}/>
+                    <Rating value={3} readOnly disabled cancel={false}/>
                     </div>
                     {/* <Tag value={product.inventoryStatus} severity={getSeverity(product)}></Tag> */}
                     <i className='pi pi-heart  custom-heart-icon' ></i>
