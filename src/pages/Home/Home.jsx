@@ -10,7 +10,7 @@ function Home() {
     <>
     <div className="container">
      <div className="row my-4">
-        <div className="col-md-4">
+        <div className="col-md-3">
             <ProductsCategory/>
         </div>
         <div className='col-md-8'>

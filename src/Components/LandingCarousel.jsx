@@ -3,8 +3,8 @@ import { Carousel } from 'react-bootstrap';
 
 function LandingCarousel() {
     return (
-        <Carousel> 
-          <Carousel.Item style={{height:"350px"}} className='bg-dark'>
+        <Carousel className='w-100'> 
+          <Carousel.Item style={{height:"450px"}} className='bg-dark'>
           <div className="row">
                 <div className="col-md-4">
                 <Carousel.Caption style={{float:"left" ,textAlign:"left" , marginBottom:"22px"}}>
@@ -22,7 +22,7 @@ function LandingCarousel() {
             </div>
           </Carousel.Item>
     
-          <Carousel.Item style={{height:"350px"}} className='bg-dark'>
+          <Carousel.Item style={{height:"450px"}} className='bg-dark'>
           <div className="row">
                 <div className="col-md-4 " >
                 <Carousel.Caption style={{float:"left" ,textAlign:"left" , marginBottom:"22px"}}>
@@ -42,7 +42,7 @@ function LandingCarousel() {
             </div>
           </Carousel.Item>
     
-          <Carousel.Item style={{height:"350px"}} className='bg-dark'>
+          <Carousel.Item style={{height:"450px"}} className='bg-dark'>
           <div className="row">
                 <div className="col-md-4">
                 <Carousel.Caption style={{float:"left" ,textAlign:"left" , marginBottom:"22px"}}>

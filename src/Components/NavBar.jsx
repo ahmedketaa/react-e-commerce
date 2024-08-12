@@ -7,7 +7,7 @@ function NavBar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/" style={{ margin: "0 190px", fontWeight: "600" }}>
+        <Link className="navbar-brand" to="/" style={{ margin: "0 112px", fontWeight: "700" }}>
           Exclusive
         </Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
