@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import api from "../../../api/products"; // Adjust the import based on your API setup
+import api from "../../../api/products"; 
 
 function AddProduct() {
   const [product, setProduct] = useState({
@@ -19,7 +19,6 @@ function AddProduct() {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
 
-    // Validate the specific field on change
     validateField(name, value);
   };
 
