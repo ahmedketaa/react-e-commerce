@@ -1,7 +1,7 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import Card from "./Card"
-import "./home.css"
+import "./products.css"
 import CategoryFilter from "./CategoryFilter"
 import { useDispatch, useSelector } from "react-redux"
 import { setProducts } from "../../ReduxToolkit/categorySlice"
@@ -10,7 +10,7 @@ import { setProducts } from "../../ReduxToolkit/categorySlice"
 
 
 
-function Home(){
+function ProductsPage(){
 
     // const [products, setProduct] = useState([])
     const dispatch = useDispatch()
@@ -62,5 +62,5 @@ const handlAllProduct = () => {
 
 
 
-export default Home
+export default ProductsPage
 

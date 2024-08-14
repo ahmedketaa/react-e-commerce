@@ -1,0 +1,15 @@
+.categoryBox{
+    border:1px solid rgba(0, 0, 0, 0.30);
+    transition: .2s ease-in-out;
+}
+.categoryBox:hover{
+    background-color: #DB4444;
+    color:white;
+    
+}
+.categoryBox i{
+    color: #DB4444;
+}
+.categoryBox:hover i{
+    color: white;
+}
