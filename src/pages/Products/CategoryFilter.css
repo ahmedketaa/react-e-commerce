@@ -1,0 +1,14 @@
+.radioIcon{
+    font-size: 50px;
+    color: #919fc7;
+}
+
+.iconBtn{
+    width: 150px;
+    padding-top: 10px;
+    border: solid rgb(130, 126, 126) 1px;
+    margin: 8px;
+    background-color: rgb(208, 201, 201);
+
+}
+
