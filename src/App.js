@@ -1,3 +1,9 @@
+// import logo from "./logo.svg";
+import "./App.css";
+// import Signup from "./pages/signup/signup";
+// import Login from "./pages/login/login";
+
+
 import React from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home";
@@ -15,6 +21,7 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 import Cart from "./pages/cart/Cart";
 
 
+import ProductsPage from "./pages/Products/ProductsPage";
 function AppContent() {
   const location = useLocation();
 
@@ -32,6 +39,7 @@ function AppContent() {
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
         <Route path="cart" element={<Cart />} />
+        <Route path="/products" element={<ProductsPage/>} />
 
         <Route path="dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}>
           <Route path="products" element={<PrivateRoute><Products /></PrivateRoute>} />

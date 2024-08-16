@@ -1,0 +1,5 @@
+.topimg{
+    background-image: url(../../../public/topne.jpg);
+    background-size: cover;
+    height: 500px;
+}
