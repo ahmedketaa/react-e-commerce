@@ -1,19 +1,33 @@
-import React from 'react'
-import { categories } from '../Utilities/Categories'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import api from '../api/products'; 
 
 function ProductsCategory() {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    api.get('/categories')
+      .then(response => {
+        setCategories(response.data);
+        console.log(categories);
+        
+      })
+      .catch(error => {
+        console.error("Error fetching categories:", error);
+      });
+  }, []);
+
   return (
     <div>
-        <ul className='w-75' style={{borderRight:"1px solid #ccc"}}>
-        {categories.map(category=>(
-            <li className='nav-item my-2'>
-              <Link className='nav-link' to={''}>{category}</Link>
-            </li>
+      <ul className='w-75' style={{ borderRight: "1px solid #ccc" }}>
+        {categories.map((category, index) => (
+          <li key={index} className='nav-item my-2'>
+            <Link className='nav-link' to={``}>{(category.name).toUpperCase()}</Link>
+          </li>
         ))}
-        </ul>
+      </ul>
     </div>
-  )
+  );
 }
 
-export default ProductsCategory
+export default ProductsCategory;
