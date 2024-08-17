@@ -1,9 +1,3 @@
-// import logo from "./logo.svg";
-import "./App.css";
-// import Signup from "./pages/signup/signup";
-// import Login from "./pages/login/login";
-
-
 import React from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home";
@@ -19,20 +13,22 @@ import Signup from "./pages/signup/signup";
 import Footer from "./Components/Footer";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import Cart from "./pages/cart/Cart";
-
-
 import ProductsPage from "./pages/Products/ProductsPage";
+import AllCategories from "./pages/dashboard/Categories/AllCategories";
+import CategoryForm from "./pages/dashboard/dashComponents/categoryForm";
+import CategoryList from "./pages/dashboard/dashComponents/categoryList";
+import { CartProvider } from "./Context/cartContext";
+
 function AppContent() {
   const location = useLocation();
 
-  // Define the routes where the footer should not appear
   const hideFooterRoutes = ["/login", "/signup", "/dashboard"];
 
-  // Check if the current path matches any of the hideFooterRoutes
   const shouldHideFooter = hideFooterRoutes.some(route => location.pathname.startsWith(route));
 
   return (
     <>
+    
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -46,6 +42,12 @@ function AppContent() {
           <Route path="orders" element={<PrivateRoute><Orders /></PrivateRoute>} />
           <Route path="addproduct" element={<PrivateRoute><AddProduct /></PrivateRoute>} />
           <Route path="customers" element={<PrivateRoute><Customers /></PrivateRoute>} />
+          {/* nested route 34an el category ya */}
+          <Route path="categories" element={<PrivateRoute><AllCategories /></PrivateRoute>}>
+            <Route index element={<CategoryList />} />
+            <Route path="add-category" element={<CategoryForm />} />
+            <Route path="update-category/:categoryId" element={<CategoryForm/>} />
+          </Route>
         </Route>
       </Routes>
       {!shouldHideFooter && <Footer />}
@@ -56,7 +58,9 @@ function AppContent() {
 function App() {
   return (
     <BrowserRouter>
-      <AppContent />
+    <CartProvider>
+    <AppContent />
+    </CartProvider>
     </BrowserRouter>
   );
 }

@@ -18,6 +18,15 @@ code {
 .p-rating:not(.p-disabled):not(.p-readonly) .p-rating-item:hover .p-rating-icon {
   color: gold !important;
 }
+.p-badge.p-component.p-badge-no-gutter.p-badge-danger{
+ width: 12px !important;
+ height: 12px !important;
+
+ line-height: 1rem !important;
+ min-width: 1rem !important;
+ min-height: 1rem !important;
+ display: block !important;
+}
 ul{
   list-style: none;
 }
@@ -99,4 +108,31 @@ ul{
 
 .cart-summary-card .checkout-button:hover {
   background: #c63c3c;
+}
+/* in dashboard */
+.special-nav-link{
+  padding: 5px 10px !important;
+  /* background-color: #ccc !important; */
+  color: #DB4444 !important;
+  font-weight: bold !important;
+  text-decoration: underline !important;
+  margin-right: 10px;
+  border: none;
+  color: #db444435;
+}
+.p-card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #fff;
+}
+
+.p-card .p-field {
+  margin-bottom: 15px;
+}
+
+.p-button-warning {
+  background-color: #FFB547;
+  border-color: #FFB547;
+  color: #fff;
 }
