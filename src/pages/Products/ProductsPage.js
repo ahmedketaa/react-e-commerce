@@ -29,21 +29,23 @@ axios.get("https://fakestoreapi.com/products")
 const productselected = selectCategory?
 products.filter((product)=> product.category === selectCategory):products
 
-const handlAllProduct = () => {
-    dispatch(setProducts())
-}
 
+
+const handleEvent = (product) => {
+   
+  };
 
     return(
         <>
        <div className="container topimg" ></div>
      <CategoryFilter/>
-     <button className="btn btn-dark"  onClick={() => handlAllProduct()}>Show All Products</button>
+
     
         <div  className="row mt-5 row-cols-1 row-cols-md-4 g-4 d-flex justify-content-evenly ms-5 mx-5">
         {productselected.map((product, index) => (
     <div key={index}>
         <Card
+            onEvent={() => handleEvent(product)} 
             category={product.category}
             img={product.image}
             title={product.title}
