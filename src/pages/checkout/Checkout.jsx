@@ -3,9 +3,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { clearCart, getCart } from '../../Utlities/CartServices';
 import MainButton from '../../ReusableComponents/MainButton';
 import { Toast } from 'primereact/toast';
-import 'primereact/resources/themes/saga-blue/theme.css';  // import your theme
-import 'primereact/resources/primereact.min.css'; // import core styles
-import 'primeicons/primeicons.css'; // import icons
+import 'primeicons/primeicons.css'; 
 
 const stripePromise = loadStripe('pk_test_51Pocw9P8naSBg9OwVJjLj7L2MG3b9atQH3bkeFb3tCgMVgHQsnF9oNYwlBInor962LGIgZXzc63vt21tOOVF63EZ00Zeg3G3K5');
 
@@ -97,7 +95,7 @@ export default function Checkout() {
             const order = await response.json();
             toast.current.show({ severity: 'success', summary: 'order placed', detail: `Order placed successfully`, life: 3000 });
 
-                
+
 
             
                 clearCart(userId)
