@@ -3,7 +3,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { clearCart, getCart } from '../../Utlities/CartServices';
 import MainButton from '../../ReusableComponents/MainButton';
 import { Toast } from 'primereact/toast';
-import 'primeicons/primeicons.css'; 
+
 
 const stripePromise = loadStripe('pk_test_51Pocw9P8naSBg9OwVJjLj7L2MG3b9atQH3bkeFb3tCgMVgHQsnF9oNYwlBInor962LGIgZXzc63vt21tOOVF63EZ00Zeg3G3K5');
 
