@@ -19,7 +19,8 @@ function Sidebar() {
         </li>
         <li>
           <NavLink to="categories" className="nav-link">
-            <i className="bi bi-bag-fill"></i> Categories
+          Categories
+            
           </NavLink>
         </li>
         </li>

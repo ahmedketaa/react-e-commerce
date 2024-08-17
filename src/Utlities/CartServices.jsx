@@ -1,5 +1,7 @@
 import api from '../api/products'; 
 
+
+
 export const getCart = (userId) => {
     return api.get(`/users/${userId}`)
       .then(response => response.data.cart)
@@ -8,20 +10,26 @@ export const getCart = (userId) => {
         throw error;
       });
   };
-  export const toggleCartItem = (userId, product, quantity) => {
+
+  export const getCartItemsCount = async (userId) => {
+    
+    const cartItems = await getCart(userId);
+    const totalCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
+    return totalCount;
+  };
+  export const toggleCartItem =async (userId, product, quantity) => {
     return api.get(`/users/${userId}`)
       .then(response => {
         const user = response.data;
         if (!user) {
           throw new Error('User not found');
         }
-
         const existingItemIndex = user.cart.findIndex(item => item.id === product.id);
-
         if (existingItemIndex > -1) {
           user.cart.splice(existingItemIndex, 1);
         } else {
-          // Add the complete product with quantity
+          
           user.cart.push({ ...product, quantity });
         }
 
