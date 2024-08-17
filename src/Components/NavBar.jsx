@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { InputText } from "primereact/inputtext";
 import 'primeicons/primeicons.css';
 import { Link } from 'react-router-dom';
+import { Badge } from 'primereact/badge';
+import { CartContext } from '../Context/cartContext';
+
 
 function NavBar() {
+
+  const { cartItemCount, wishlistItemCount } = useContext(CartContext);
+  
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -38,13 +44,19 @@ function NavBar() {
           </form>
           <ul className='navbar-nav me-auto mx-4 mb-2 mb-lg-0 gap-4'>
             <li>
-              <Link to="/favorites">
-                <i className="pi pi-heart" style={{ color: 'gray', fontSize: "20px" }} aria-label="Favorites"></i>
+              <Link to="/wishlist">
+                <i className="pi pi-heart p-overlay-badge" style={{ color: 'gray', fontSize: "20px" }} aria-label="Favorites">
+                <Badge value={wishlistItemCount}  severity="danger" style={{fontSize:"10px"}}></Badge>
+                </i>
               </Link>
+            
             </li>
             <li>
               <Link to="/cart">
-                <i className="pi pi-shopping-cart" style={{ color: 'gray', fontSize: "20px" }} aria-label="Shopping Cart"></i>
+                <i className="pi pi-shopping-cart p-overlay-badge" style={{ color: 'gray', fontSize: "20px" }} aria-label="Shopping Cart">
+                <Badge value={cartItemCount}  severity="danger" style={{fontSize:"10px"}}></Badge>
+
+                </i>
               </Link>
             </li>
           </ul>

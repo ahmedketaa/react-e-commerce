@@ -12,11 +12,17 @@ function Sidebar() {
           <NavLink to="products" className="nav-link">
             <i className="bi bi-house-door-fill"></i> Products
           </NavLink>
-        </li>
         <li>
           <NavLink to="addproduct" className="nav-link">
             <i className="bi bi-bag-fill"></i> add product
           </NavLink>
+        </li>
+        <li>
+          <NavLink to="categories" className="nav-link">
+          Categories
+            
+          </NavLink>
+        </li>
         </li>
         <li>
           <NavLink to="orders" className="nav-link">

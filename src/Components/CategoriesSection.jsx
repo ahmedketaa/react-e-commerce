@@ -2,6 +2,11 @@ import React from 'react'
 import CategorySectionItem from '../ReusableComponents/CategorySectionItem'
 import MainTitle from '../ReusableComponents/MainTitle'
 import SecondTitle from '../ReusableComponents/SecondTitle'
+import { GiClothes } from "react-icons/gi";
+import { FcElectronics } from "react-icons/fc";
+import { GiJewelCrown } from "react-icons/gi";
+import { GrRestroomWomen } from "react-icons/gr";
+
 
 export default function CategoriesSection() {
   return (
@@ -9,12 +14,10 @@ export default function CategoriesSection() {
         <MainTitle title={'Categories'} />
         <SecondTitle title={'Browse By Category'} />
         <div className="row">
-            <CategorySectionItem name={'Camera'} icon={'pi-camera'} />
-            <CategorySectionItem name={'Computers'} icon={'pi-desktop'} />
-            <CategorySectionItem name={'Microphone'} icon={'pi-microphone'} />
-            <CategorySectionItem name={'Phones'} icon={'pi-mobile'} />
-            <CategorySectionItem name={'Headphones'} icon={'pi-headphones'} />
-            <CategorySectionItem name={'Phones'} icon={'pi-camera'} />
+            <CategorySectionItem name={'Electronics'} icon={<FcElectronics style={{fontSize:"45px"}}/>} />
+            <CategorySectionItem name={`Men's Clothes`} icon={<GiClothes style={{fontSize:"45px"}}/>} />
+            <CategorySectionItem name={`Women's Clothes`} icon={<GrRestroomWomen style={{fontSize:"45px",color:"#"}}/>} />
+            <CategorySectionItem name={'Jewelery'} icon={<GiJewelCrown style={{fontSize:"45px"}}/>} />
         </div>
     </div>
   )

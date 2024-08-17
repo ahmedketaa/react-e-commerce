@@ -261,6 +261,32 @@
       "quantity": 10
     }
   ],
-  "users": [],
-  "orders": []
+  "users": [
+    {
+      "id": "1",
+      "username": "keta20",
+      "password": "123123",
+      "cart": [],
+      "wishlist": []
+    }
+  ],
+  "orders": [],
+  "categories": [
+    {
+      "id": "3",
+      "name": "men's clothing"
+    },
+    {
+      "id": "4",
+      "name": "women's clothing"
+    },
+    {
+      "id": "7730",
+      "name": "electronics"
+    },
+    {
+      "id": "bdd7",
+      "name": "jewelery"
+    }
+  ]
 }

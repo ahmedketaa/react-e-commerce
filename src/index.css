@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 code {
@@ -16,4 +17,122 @@ code {
 }
 .p-rating:not(.p-disabled):not(.p-readonly) .p-rating-item:hover .p-rating-icon {
   color: gold !important;
+}
+.p-badge.p-component.p-badge-no-gutter.p-badge-danger{
+ width: 12px !important;
+ height: 12px !important;
+
+ line-height: 1rem !important;
+ min-width: 1rem !important;
+ min-height: 1rem !important;
+ display: block !important;
+}
+ul{
+  list-style: none;
+}
+.custom-heart-icon {
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  color: #777;
+  font-size: 19px;
+  padding: 8px;
+  border-radius: 50%;
+  background-color: white;
+  cursor: pointer;
+}
+
+.custom-heart-icon:hover{
+  color: #DB4444;
+}
+.in-cart{
+  color: white !important;
+  background-color: #DB4444 !important;
+  
+}
+.scroll-div{
+  max-height: 400px;
+  overflow-y: scroll;
+  box-shadow: 0px 4px 8px rgba(212, 207, 207, 0.1), 
+  4px 0px 8px rgba(212, 207, 207, 0.1), 
+  0px -4px 8px rgba(212, 207, 207, 0.1), 
+  -4px 0px 8px rgba(212, 207, 207, 0.1);
+  padding: 40px 10px;
+}
+.scroll-div::-webkit-scrollbar {
+  width: 12px; 
+}
+.scroll-div::-webkit-scrollbar-thumb {
+  background-color: #DB4444; 
+  border-radius: 6px;
+}
+
+.scroll-div::-webkit-scrollbar-track {
+  background-color: #f1f1f1; 
+  border-radius: 6px; 
+}
+.cart-summary-card {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.cart-summary-card h2 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.cart-summary-card .total-price {
+  font-size: 24px;
+  color: #DB4444;
+  margin-bottom: 20px;
+}
+
+.cart-summary-card .checkout-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: #DB4444;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.cart-summary-card .checkout-button:hover {
+  background: #c63c3c;
+}
+/* in dashboard */
+.special-nav-link{
+  padding: 5px 10px !important;
+  /* background-color: #ccc !important; */
+  color: #DB4444 !important;
+  font-weight: bold !important;
+  text-decoration: underline !important;
+  margin-right: 10px;
+  border: none;
+  color: #db444435;
+}
+.p-card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #fff;
+}
+
+.p-card .p-field {
+  margin-bottom: 15px;
+}
+
+.p-button-warning {
+  background-color: #FFB547;
+  border-color: #FFB547;
+  color: #fff;
 }

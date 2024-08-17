@@ -7,9 +7,9 @@
     color:white;
     
 }
-.categoryBox i{
-    color: #DB4444;
+.categoryBox svg{
+    color: #DB4444 ;
 }
-.categoryBox:hover i{
+.categoryBox:hover svg{
     color: white;
 }
