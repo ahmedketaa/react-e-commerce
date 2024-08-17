@@ -33,7 +33,6 @@ export const getCart = (userId) => {
           user.cart.push({ ...product, quantity });
         }
 
-        // Update the user with the new cart
         return api.put(`/users/${userId}`, user);
       })
       .then(response => response.data)
@@ -45,7 +44,7 @@ export const getCart = (userId) => {
 
 
 
-export const updateCartItem = (userId, product, quantityChange) => {
+export const updateCartItem = async(userId, product, quantityChange) => {
   
   return api.get(`/users/${userId}`)
     .then(response => {
@@ -60,12 +59,28 @@ export const updateCartItem = (userId, product, quantityChange) => {
       user.cart[existingItemIndex].quantity=quantityChange;
        
     }
-      // Update the user with the new cart
       return api.put(`/users/${userId}`, user);
     })
     .then(response => response.data)
     .catch(error => {
       console.error('Error updating cart item:', error);
+      throw error;
+    });
+};
+
+export const clearCart =async (userId) => {
+  return api.get(`/users/${userId}`)
+    .then(response => {
+      const user = response.data;
+      if (!user) {
+        throw new Error('User not found');
+      }
+      user.cart = [];
+      return api.put(`/users/${userId}`, user);
+    })
+    .then(response => response.data)
+    .catch(error => {
+      console.error('Error clearing cart:', error);
       throw error;
     });
 };
