@@ -23,4 +23,12 @@ overflow: hidden;
 
 
 
+.heart{
+     color: rgb(173, 110, 115);
 
+}
+
+.heart:hover{
+    color: rgb(196, 18, 18);
+
+}

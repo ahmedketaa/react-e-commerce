@@ -18,6 +18,7 @@ import Login from "./pages/login/login";
 import Signup from "./pages/signup/signup";
 import Footer from "./Components/Footer";
 import ProductsPage from "./pages/Products/ProductsPage";
+import Wishlist from "./Wishlist/Wishlist";
 function AppContent() {
   const location = useLocation();
 
@@ -32,6 +33,7 @@ function AppContent() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/whishlist" element={<Wishlist />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
         <Route path="/products" element={<ProductsPage/>} />
