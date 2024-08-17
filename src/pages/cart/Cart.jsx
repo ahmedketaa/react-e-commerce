@@ -43,6 +43,7 @@ export default function Cart() {
                 .then(() => getCart(userId))
                 .then(data => {
                     setCartItems(data);
+                    updateCartCount()
                     setQuantity(!quantity);
                 })
                 .catch(error => console.error('Error updating quantity:', error));
@@ -144,7 +145,7 @@ export default function Cart() {
                     <div className="cart-summary-card">
                         <h2>Cart Summary</h2>
                         <div className="total-price">Total Price: ${totalPrice.toFixed(2)}</div>
-                        <button className="checkout-button">Proceed to Checkout</button>
+                        <button className="checkout-button" onClick={() => navigate('/checkout')}>Proceed to Checkout</button>
                     </div>
                 </>
             )}

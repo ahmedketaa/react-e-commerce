@@ -20,6 +20,9 @@ import AllCategories from "./pages/dashboard/Categories/AllCategories";
 import CategoryForm from "./pages/dashboard/dashComponents/categoryForm";
 import CategoryList from "./pages/dashboard/dashComponents/categoryList";
 import { CartProvider } from "./Context/cartContext";
+import Checkout from "./pages/checkout/Checkout";
+import Success from "./pages/checkout/successPage/SuccessPage";
+import Cancel from "./pages/checkout/cancelPage/CancelPage";
 
 function AppContent() {
   const location = useLocation();
@@ -34,12 +37,14 @@ function AppContent() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/whishlist" element={<Wishlist />} />
+        <Route path="/wishlist" element={<Wishlist />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
         <Route path="cart" element={<Cart />} />
         <Route path="/products" element={<ProductsPage/>} />
-
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/success" element={<Success />} />
+        <Route path="/cancel" element={<Cancel />} />
         <Route path="dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}>
           <Route path="products" element={<PrivateRoute><Products /></PrivateRoute>} />
           <Route path="orders" element={<PrivateRoute><Orders /></PrivateRoute>} />
