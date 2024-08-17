@@ -23,6 +23,9 @@ import { CartProvider } from "./Context/cartContext";
 import Checkout from "./pages/checkout/Checkout";
 import Success from "./pages/checkout/successPage/SuccessPage";
 import Cancel from "./pages/checkout/cancelPage/CancelPage";
+import ContactUs from "./pages/contactUs/contactUs";
+import AboutUs from "./pages/aboutUs/aboutUs";
+import NotFoundPage from "./pages/404Page/notFound";
 
 function AppContent() {
   const location = useLocation();
@@ -33,18 +36,22 @@ function AppContent() {
 
   return (
     <>
-    
-      <NavBar />
+          {!shouldHideFooter &&   <NavBar />
+          }
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
-        <Route path="cart" element={<Cart />} />
+        <Route path="cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
         <Route path="/products" element={<ProductsPage/>} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/success" element={<Success />} />
         <Route path="/cancel" element={<Cancel />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="*" element={<NotFoundPage />} />
         <Route path="dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}>
           <Route path="products" element={<PrivateRoute><Products /></PrivateRoute>} />
           <Route path="orders" element={<PrivateRoute><Orders /></PrivateRoute>} />

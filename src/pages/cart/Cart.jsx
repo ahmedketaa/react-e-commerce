@@ -9,7 +9,7 @@ export default function Cart() {
     const toast = useRef(null);
     const [quantity, setQuantity] = useState(false);
     const { updateCartCount } = useContext(CartContext);
-    const userId = 1;
+    const userId = 1; 
     const navigate = useNavigate(); 
 
     useEffect(() => {
