@@ -1,14 +1,39 @@
 .radioIcon{
     font-size: 50px;
-    color: #919fc7;
+    /* color: #919fc7; */
+    color: #db4444;
 }
+
 
 .iconBtn{
     width: 150px;
     padding-top: 10px;
     border: solid rgb(130, 126, 126) 1px;
     margin: 8px;
-    background-color: rgb(208, 201, 201);
+    transition: background-color 0.05s ;
+    /*background-color: rgb(208, 201, 201);
+    */-webkit-transition: background-color0.05s ;
+    -moz-transition: background-color 0.05s ;
+    -ms-transition: background-color 0.05s ;
+    -o-transition: background-color 0.05s ;
+    -webkit-transition: background-color 0.05s ;
+}
+
+.iconBtn:hover{
+    background-color: #dc3545;
 
 }
 
+.iconBtn:hover .radioIcon{
+    color: white;
+}
+
+.iconBtn:hover .parg{
+    color: white;
+}
+
+.parg{
+    color: #000000;
+    font-size: large;
+    font-weight: 500;
+}

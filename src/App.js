@@ -14,6 +14,8 @@ import Footer from "./Components/Footer";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import Cart from "./pages/cart/Cart";
 import ProductsPage from "./pages/Products/ProductsPage";
+import Wishlist from "./Wishlist/Wishlist";
+
 import AllCategories from "./pages/dashboard/Categories/AllCategories";
 import CategoryForm from "./pages/dashboard/dashComponents/categoryForm";
 import CategoryList from "./pages/dashboard/dashComponents/categoryList";
@@ -32,6 +34,7 @@ function AppContent() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/whishlist" element={<Wishlist />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
         <Route path="cart" element={<Cart />} />
