@@ -6,8 +6,8 @@ import Orders from "./pages/dashboard/orders/orders";
 import AddProduct from "./pages/dashboard/addProuduct/addProduct";
 import Customers from "./pages/dashboard/customers/customers";
 import Products from "./pages/dashboard/products/products";
-import NavBar from './Components/NavBar';
-import PrivateRoute from "./protectedRoutes"; 
+import NavBar from "./Components/NavBar";
+import PrivateRoute from "./protectedRoutes";
 import Login from "./pages/login/login";
 import Signup from "./pages/signup/signup";
 import Footer from "./Components/Footer";
@@ -26,42 +26,111 @@ import Cancel from "./pages/checkout/cancelPage/CancelPage";
 import ContactUs from "./pages/contactUs/contactUs";
 import AboutUs from "./pages/aboutUs/aboutUs";
 import NotFoundPage from "./pages/404Page/notFound";
+import { ContextProvider } from "./Context/authContext";
 
 function AppContent() {
   const location = useLocation();
 
   const hideFooterRoutes = ["/login", "/signup", "/dashboard"];
 
-  const shouldHideFooter = hideFooterRoutes.some(route => location.pathname.startsWith(route));
+  const shouldHideFooter = hideFooterRoutes.some((route) =>
+    location.pathname.startsWith(route)
+  );
 
   return (
     <>
-          {!shouldHideFooter &&   <NavBar />
-          }
+      {!shouldHideFooter && <NavBar />}
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/wishlist" element={<Wishlist />} />
+        <Route
+          path="/wishlist"
+          element={
+            <PrivateRoute>
+              <Wishlist />
+            </PrivateRoute>
+          }
+        />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
-        <Route path="cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
-        <Route path="/products" element={<ProductsPage/>} />
+        <Route
+          path="cart"
+          element={
+            <PrivateRoute>
+              <Cart />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/products" element={<ProductsPage />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/success" element={<Success />} />
         <Route path="/cancel" element={<Cancel />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="*" element={<NotFoundPage />} />
-        <Route path="dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}>
-          <Route path="products" element={<PrivateRoute><Products /></PrivateRoute>} />
-          <Route path="orders" element={<PrivateRoute><Orders /></PrivateRoute>} />
-          <Route path="addproduct" element={<PrivateRoute><AddProduct /></PrivateRoute>} />
-          <Route path="customers" element={<PrivateRoute><Customers /></PrivateRoute>} />
-          {/* nested route 34an el category ya */}
-          <Route path="categories" element={<PrivateRoute><AllCategories /></PrivateRoute>}>
+        <Route
+          path="dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        >
+          <Route
+            index
+            element={
+              <PrivateRoute>
+                <Products />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="products"
+            element={
+              <PrivateRoute>
+                <Products />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="orders"
+            element={
+              <PrivateRoute>
+                <Orders />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="addproduct"
+            element={
+              <PrivateRoute>
+                <AddProduct />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="customers"
+            element={
+              <PrivateRoute>
+                <Customers />
+              </PrivateRoute>
+            }
+          />
+          {/* nested route 34an el category ya :: :')*/}
+          <Route
+            path="categories"
+            element={
+              <PrivateRoute>
+                <AllCategories />
+              </PrivateRoute>
+            }
+          >
             <Route index element={<CategoryList />} />
             <Route path="add-category" element={<CategoryForm />} />
-            <Route path="update-category/:categoryId" element={<CategoryForm/>} />
+            <Route
+              path="update-category/:categoryId"
+              element={<CategoryForm />}
+            />
           </Route>
         </Route>
       </Routes>
@@ -73,9 +142,11 @@ function AppContent() {
 function App() {
   return (
     <BrowserRouter>
-    <CartProvider>
-    <AppContent />
-    </CartProvider>
+      <ContextProvider>
+        <CartProvider>
+          <AppContent />
+        </CartProvider>
+      </ContextProvider>
     </BrowserRouter>
   );
 }

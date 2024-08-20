@@ -78,7 +78,6 @@ export default function Checkout() {
             totalPrice: (parseFloat(totalPrice) - discount).toFixed(2),
             shippingDetails: formData,
         };
-
         try {
             const response = await fetch('http://localhost:8000/orders', {
                 method: 'POST',
