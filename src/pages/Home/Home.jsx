@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import LandingCarousel from '../../Components/LandingCarousel';
 import ProductsCategory from '../../Components/ProductsCategory';
 import FlashSales from '../../Components/FlashSales';

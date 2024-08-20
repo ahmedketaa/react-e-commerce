@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../api/products";
+import useAuth from "../../hooks/useAuth";
 function Signup() {
   // Regex patterns
   const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -144,7 +145,11 @@ function Signup() {
       return false;
     }
   };
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const { auth } = useAuth();
+  useEffect(() => {
+    auth?.user && navigate("/");
+  }, []);
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
