@@ -6,7 +6,7 @@ import useAuth from "../../hooks/useAuth";
 
 function Login() {
   // Regex
-  const emailPattern = /^[\w-\d]+@([\w-]+\.)+[\w-]{2,4}$/;
+  const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
   // Handle User
   const [user, setUser] = useState({
