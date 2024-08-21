@@ -10,7 +10,7 @@ function NavBar() {
 
   const { cartItemCount, wishlistItemCount } = useContext(CartContext);
   
-  return (
+  return ( 
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/" style={{ margin: "0 112px", fontWeight: "700" }}>
@@ -55,7 +55,7 @@ function NavBar() {
               <Link to="/cart">
                 <i className="pi pi-shopping-cart p-overlay-badge" style={{ color: 'gray', fontSize: "20px" }} aria-label="Shopping Cart">
                 <Badge value={cartItemCount}  severity="danger" style={{fontSize:"10px"}}></Badge>
-
+                   
                 </i>
               </Link>
             </li>

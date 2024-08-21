@@ -115,6 +115,7 @@ export default function ProductSlider() {
     ];
 
     const productTemplate = (product) => {
+        
         const isInCart = isProductInCart(product.id);
         const isInWishlist = isProductInWishlist(product.id);
 

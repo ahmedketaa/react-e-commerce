@@ -1,69 +1,103 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Container, Row,  } from "react-bootstrap";
+import React, { useState, useEffect, useContext } from "react";
+import { Container, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faX } from "@fortawesome/free-solid-svg-icons"
-
+import { faHeart, faX } from "@fortawesome/free-solid-svg-icons";
+import { getWishlist, toggleWishlistItem } from "../Utlities/WishlistServices";
+import { CartContext } from "../Context/cartContext";
+import { toggleCartItem } from "../Utlities/CartServices";
 
 function Wishlist() {
-    const [products, setProducts] = useState([]);
+  const [wishlist, setWishlist] = useState([]);
+  const { updateCartCount } = useContext(CartContext);
+  const userId = 1;
 
-    useEffect(() => {
-        axios.get("https://fakestoreapi.com/products")
-            .then((res) => { setProducts(res.data);
-                console.log(res.data);
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    }, []);
+  useEffect(() => {
+    getWishlist(userId)
+      .then((data) => {
+        setWishlist(data);
+      })
+      .catch((err) => console.error(err));
+  }, [updateCartCount]);
 
-    const twoProducts = products.slice(0, 2);
+  const handleAddToCart = (product) => {
+    toggleCartItem(userId, product, 1)
+      .then(() => getWishlist(userId))
+      .then((data) => {
+        setWishlist(data);
+        updateCartCount();
+      })
+      .catch((error) => console.error("Error adding item to cart:", error));
+  };
 
-    return (
-        <Container>
-            <h1 className="my-4">My Wishlist
-            <FontAwesomeIcon className="heart text-danger" icon={faHeart} />
-            </h1>
-            <Row>
-                
-                    
-                    <table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Delete</th>
-      {/* <th scope="col">img</th> */}
-      <th colSpan={2} scope="col"  className="ps-5">Product Name</th>
-      <th scope="col">Price</th>
-      <th scope="col">Category</th>
-      <th scope="col">Action</th>
+  const handleRemoveFromWishlist = (product) => {
+    toggleWishlistItem(userId, product)
+      .then(() => getWishlist(userId))
+      .then((data) => {
+        setWishlist(data);
+      })
+      .catch((error) =>
+        console.error("Error removing item from wishlist:", error)
+      );
+  };
 
-    </tr>
-  </thead>
-  <tbody>
-  {twoProducts.map((product, index) => (
-    <tr key={index}>
-       <td> <button className="btn xxbtn "><FontAwesomeIcon className="xx text-danger" icon={faX} />
-        </button></td>
-      <td><img className="rounded mx-auto d-block pt-2 " style={{width: "100px", height: "100px"}} src={product.image} alt=".."/></td>
-      <td>{product.title}</td>
-      <td>${product.price}</td>
-      <td>{product.category}</td>
-
-      <td>
-        <button className="btn btn-success">Add To Cart</button>
-      
-        
-
-      </td>
-      </tr>
-         ))}
-  </tbody>
-</table>
-             
-            </Row>
-        </Container>
-    );
+  return (
+    <Container>
+      <h1 className="my-4">
+        My Wishlist
+        <FontAwesomeIcon
+          className="heart text-danger ms-2"
+          style={{ fontSize: "30px" }}
+          icon={faHeart}
+        />
+      </h1>
+      <Row>
+        <table className="table">
+          <thead className="thead-dark">
+            <tr>
+              <th scope="col">Delete</th>
+              <th colSpan={2} scope="col" className="ps-5">
+                Product Name
+              </th>
+              <th scope="col">Price</th>
+              <th scope="col">Category</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {wishlist.map((product, index) => (
+              <tr key={index}>
+                <td>
+                  <button
+                    className="btn xxbtn"
+                    onClick={() => handleRemoveFromWishlist(product)}>
+                    <FontAwesomeIcon className="xx text-danger" icon={faX} />
+                  </button>
+                </td>
+                <td>
+                  <img
+                    className="rounded mx-auto d-block pt-2"
+                    style={{ width: "100px", height: "100px" }}
+                    src={product.image}
+                    alt="..."
+                  />
+                </td>
+                <td>{product.title}</td>
+                <td>${product.price}</td>
+                <td>{product.category}</td>
+                <td>
+                  <button
+                    className="btn btn-success"
+                    onClick={() => handleAddToCart(product)}>
+                    Add To Cart
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </Row>
+    </Container>
+  );
 }
 
 export default Wishlist;

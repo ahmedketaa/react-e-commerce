@@ -37,3 +37,4 @@ export const getWishlist = (userId) => {
         throw error;
       });
 };
+
