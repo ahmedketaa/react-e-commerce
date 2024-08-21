@@ -264,6 +264,7 @@
   "users": [
     {
       "id": "1",
+      "email": "keta@gmail.com",
       "username": "keta20",
       "password": "123123",
       "cart": [
@@ -332,6 +333,19 @@
           }
         }
       ]
+
+      "role": "admin",
+      "cart": [],
+      "wishlist": []
+    },
+    {
+      "id": "2ef0",
+      "username": "mohamed",
+      "email": "mohamedyasiiin1@yahoo.com",
+      "password": "mohamed123",
+      "role": "admin",
+      "cart": [],
+      "wishlist": []
     }
   ],
   "orders": [

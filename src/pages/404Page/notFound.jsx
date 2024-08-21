@@ -11,7 +11,7 @@ const NotFoundPage = () => {
                     <h1 className="display-1 mt-4">404</h1>
                     <h2 className="mb-4 mt-3">Oops! Page Not Found</h2>
                     <p className="lead mt-4">
-                    Your visited page not found. You may go home page.                    </p>
+                    Your visited page not found. You may go home page.</p>
                     <Link to="/" style={{textDecoration:"none"}} className='mt-5'>
                        <MainButton title={'Go Home'}   ourStyle='mt-4'/>
                     </Link>

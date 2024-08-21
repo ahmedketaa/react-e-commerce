@@ -7,6 +7,8 @@ import { toggleCartItem, getCart } from '../Utlities/CartServices';
 import { Toast } from 'primereact/toast';
 import { getWishlist, toggleWishlistItem } from '../Utlities/WishlistServices';
 import { CartContext } from '../Context/cartContext';
+import useAuth from '../hooks/useAuth';
+import { useNavigate } from 'react-router';
 
 export default function ProductSlider() {
     const [products, setProducts] = useState([]);
@@ -15,7 +17,8 @@ export default function ProductSlider() {
     const toast = useRef(null);
     const { updateCartCount, updateWishlistCount } = useContext(CartContext);
     const { cartItemCount, wishlistItemCount } = useContext(CartContext);
-
+    const {auth } = useAuth()
+    const navigate = useNavigate()
     const userId = 1;
 
     const getProducts = () => {
@@ -54,29 +57,35 @@ export default function ProductSlider() {
     };
 
     const handleToggleCart = (product, quantity) => {
-        const productId = product.id;
-        const inCart = isProductInCart(productId);
-        toggleCartItem(userId, product, quantity)
-            .then(() => getCart(userId))
-            .then(data => {
-                setCart(data);
-                updateCartCount(); 
-                toast.current.show({
-                    severity: inCart ? 'error' : 'success',
-                    summary: 'Success',
-                    detail: inCart ? 'Item removed from cart' : 'Item added to cart',
-                    life: 3000
-                });
-            })
-            .catch(error => console.error('Error toggling cart item:', error))
-            .finally(getProducts());
+        if(auth.user){ 
+            const productId = product.id;
+            const inCart = isProductInCart(productId);
+            toggleCartItem(userId, product, quantity)
+                .then(() => getCart(userId))
+                .then(data => {
+                    setCart(data);
+                    updateCartCount(); 
+                    toast.current.show({
+                        severity: inCart ? 'error' : 'success',
+                        summary: 'Success',
+                        detail: inCart ? 'Item removed from cart' : 'Item added to cart',
+                        life: 3000
+                    });
+                })
+                .catch(error => console.error('Error toggling cart item:', error))
+                .finally(getProducts());
+        }else { 
+            navigate("/login")
+        }
+       
     };
 
     const handleToggleWishlist = (product) => {
         const productId = product.id;
         const inWishlist = isProductInWishlist(productId);
-        toggleWishlistItem(userId, product)
-            .then(() => getWishlist(userId))
+        if(auth.user) { 
+             toggleWishlistItem(userId, product)
+             .then(() => getWishlist(userId))
             .then(data => {
                 setWishlist(data);
                 updateWishlistCount(); 
@@ -89,6 +98,10 @@ export default function ProductSlider() {
             })
             .catch(error => console.error('Error toggling wishlist item:', error))
             .finally(getProducts());
+        }else{ 
+            navigate("/login")
+        }
+        
     };
 
     const responsiveOptions = [

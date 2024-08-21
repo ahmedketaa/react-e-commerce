@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./signup.css";
-
+import { Link, useNavigate } from "react-router-dom";
+import api from "../../api/products";
+import useAuth from "../../hooks/useAuth";
 function Signup() {
   // Regex patterns
   const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -26,7 +28,6 @@ function Signup() {
     passErrStyle: "",
     confirmPassErrStyle: "",
   });
-
   // Handle Input Change
   const handleForm = (e) => {
     const { name, value } = e.target;
@@ -115,15 +116,89 @@ function Signup() {
     setShowHide(e.target.checked ? "text" : "password");
   };
 
+  const [successMsg, setSuccessMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  // Check if the form is valid
+  const isFormValid = () => {
+    return (
+      !errors.usernameErr &&
+      !errors.emailErr &&
+      !errors.passErr &&
+      !errors.confirmPassErr &&
+      !errors.genderErr &&
+      user.username &&
+      user.email &&
+      user.password &&
+      user.confirmPassword &&
+      user.gender
+    );
+  };
+
+  // check email is exist or not
+  const checkEmailExists = async (email) => {
+    try {
+      const response = await api.get(`/users?email=${email}`);
+      return response.data.length > 0;
+    } catch (error) {
+      console.error("Error checking email:", error);
+      return false;
+    }
+  };
+  const navigate = useNavigate();
+  const { auth } = useAuth();
+  useEffect(() => {
+    auth?.user && navigate("/");
+  }, []);
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (isFormValid()) {
+      const emailExists = await checkEmailExists(user.email);
+      if (emailExists) {
+        setErrorMsg("Email already exists.");
+        setErrors({ ...errors, emailErrStyle: "is-invalid" });
+        setSuccessMsg("");
+      } else {
+        try {
+          let userData = { ...user };
+          delete userData.confirmPassword;
+          delete userData.gender;
+          userData.role = "user";
+          userData.cart = [];
+          userData.wishlist = [];
+          await api.post("/users", userData);
+          setSuccessMsg("Signup successful!");
+          setErrorMsg("");
+          setTimeout(() => navigate("/login"), 1000);
+        } catch (error) {
+          setErrorMsg("Signup failed. Please try again.");
+          setSuccessMsg("");
+        }
+      }
+    } else {
+      setErrorMsg("Please correct the errors in the form.");
+      setSuccessMsg("");
+    }
+  };
+
   return (
     <div className="body container-fluid">
       <div className="text-center p-2 mb-2 bg-info bg-opacity-10 border border-success border-start rounded">
         <i className="text-danger fa-solid fa-sort-down"></i>
-        <h3 className="text-warning">Gaza Store</h3>
+        <Link
+          style={{ textDecoration: "none" }}
+          to="/"
+          className="text-warning"
+        >
+          <h3>Gaza Store</h3>
+        </Link>
       </div>
       <div className="p-3 form card shadow-lg col-lg-4 col-md-6 col-sm-12 p-4">
         <h4 className="mb-4 text-center">Sign up</h4>
-        <form>
+        {successMsg && <div className="alert alert-success">{successMsg}</div>}
+        {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
+        <form onSubmit={handleSubmit}>
           {/* Username */}
           <div id="nameStyle" className="mb-4">
             <input
@@ -210,16 +285,20 @@ function Signup() {
               <small>{errors.genderErr}</small>
             </div>
           </div>
-          <button type="submit" className="w-100 btn btn-primary">
+          <button
+            type="submit"
+            className="w-100 btn btn-primary"
+            disabled={!isFormValid()}
+          >
             Sign Up
           </button>
         </form>
         <p className="text-center ">
           <small>
             Already have an account?{" "}
-            <span role="button" className="text-primary">
+            <Link to="/login" role="button" className="text-primary">
               Sign in
-            </span>
+            </Link>
           </small>
         </p>
       </div>

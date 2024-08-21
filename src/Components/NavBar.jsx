@@ -4,17 +4,20 @@ import 'primeicons/primeicons.css';
 import { Link } from 'react-router-dom';
 import { Badge } from 'primereact/badge';
 import { CartContext } from '../Context/cartContext';
+import useAuth from '../hooks/useAuth';
 
 
 function NavBar() {
+
+  const{ auth,logOut } = useAuth()
 
   const { cartItemCount, wishlistItemCount } = useContext(CartContext);
   
   return ( 
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/" style={{ margin: "0 112px", fontWeight: "700" }}>
-          Exclusive
+        <Link className="navbar-brand text-danger" to="/" style={{ margin: "0 112px", fontWeight: "700" }}>
+          Gaza Store
         </Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
@@ -33,9 +36,21 @@ function NavBar() {
             <li className="nav-item">
               <Link className="nav-link" to="/about">About</Link>
             </li>
-            <li className="nav-item">
+            {auth?.user ?  "" : <li className="nav-item">
               <Link className="nav-link" to="/signup">Sign Up</Link>
-            </li>
+            </li>}
+            {auth?.user ? "" : <li className="nav-item">
+              <Link className="nav-link" to="/login">Login</Link>
+            </li>}
+            { 
+              auth?.user?.role == "admin" ? <li className="nav-item">
+              <Link className="nav-link text-primary" to="/dashboard">Dashboard</Link>
+            </li> : ""
+            }
+          
+   
+   
+            
           </ul>
           <form className="d-flex">
             <InputText className="form-control me-2" style={{ background: '#F5F5F5' }} type="search" placeholder="Search" aria-label="Search" />
@@ -55,11 +70,16 @@ function NavBar() {
               <Link to="/cart">
                 <i className="pi pi-shopping-cart p-overlay-badge" style={{ color: 'gray', fontSize: "20px" }} aria-label="Shopping Cart">
                 <Badge value={cartItemCount}  severity="danger" style={{fontSize:"10px"}}></Badge>
-                   
+
                 </i>
               </Link>
             </li>
           </ul>
+          <div className='nav-item'> 
+          { 
+              auth?.user ?  <div role='button' className="nav-link text-danger" onClick={logOut}>Logout</div> : ""
+            }
+          </div>
         </div>
       </div>
     </nav>
