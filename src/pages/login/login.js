@@ -108,6 +108,7 @@ function Login() {
           setSuccessMsg("Login Successful");
           setErrorMsg("");
           setAuth({ user: foundedUser });
+          localStorage.setItem("active-user", JSON.stringify(foundedUser));
           navigate(from, { replace: true });
         } else {
           console.log("email is not founded");

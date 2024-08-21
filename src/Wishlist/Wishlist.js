@@ -5,11 +5,13 @@ import { faHeart, faX } from "@fortawesome/free-solid-svg-icons";
 import { getWishlist, toggleWishlistItem } from "../Utlities/WishlistServices";
 import { CartContext } from "../Context/cartContext";
 import { toggleCartItem } from "../Utlities/CartServices";
+import useAuth from "../hooks/useAuth";
 
 function Wishlist() {
   const [wishlist, setWishlist] = useState([]);
   const { updateCartCount } = useContext(CartContext);
-  const userId = 1;
+  const { auth } = useAuth();
+  const userId = auth?.user?.id;
 
   useEffect(() => {
     getWishlist(userId)
@@ -69,7 +71,8 @@ function Wishlist() {
                 <td>
                   <button
                     className="btn xxbtn"
-                    onClick={() => handleRemoveFromWishlist(product)}>
+                    onClick={() => handleRemoveFromWishlist(product)}
+                  >
                     <FontAwesomeIcon className="xx text-danger" icon={faX} />
                   </button>
                 </td>
@@ -87,7 +90,8 @@ function Wishlist() {
                 <td>
                   <button
                     className="btn btn-success"
-                    onClick={() => handleAddToCart(product)}>
+                    onClick={() => handleAddToCart(product)}
+                  >
                     Add To Cart
                   </button>
                 </td>
