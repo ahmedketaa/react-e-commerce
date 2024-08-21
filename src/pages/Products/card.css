@@ -23,12 +23,17 @@ overflow: hidden;
 
 
 
-.heart{
-     color: rgb(173, 110, 115);
+.heartbtn{
+     color: rgb(171, 158, 159);
+     font-size: 20px;
 
 }
+.cartbtn{
+    color:rgb(171, 158, 159);
+     font-size: 20px;
+}
 
-.heart:hover{
+/* .heart:hover{
     color: rgb(196, 18, 18);
 
-}
+} */
