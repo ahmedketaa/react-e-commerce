@@ -9,7 +9,6 @@ function ProductsCategory() {
     api.get('/categories')
       .then(response => {
         setCategories(response.data);
-        console.log(categories);
         
       })
       .catch(error => {

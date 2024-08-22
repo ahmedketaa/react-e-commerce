@@ -4,9 +4,18 @@ export const getProducts = () => {
   return api.get('/products');
 };
 
-export const getProductById = (id) => {
-  return api.get(`/products/${id}`);
+export const getProductById =async (id) => {
+  return fetch(`http://localhost:8000/products/${id}`)
+    .then(response => response.json())
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      console.error('Error fetching product by ID:', error);
+      throw error;
+    });
 };
+
 
 export const addProduct = (product) => {
   return api.post('/products', product);
@@ -18,4 +27,22 @@ export const updateProduct = (id, updatedProduct) => {
 
 export const deleteProduct = (id) => {
   return api.delete(`/products/${id}`);
+};
+
+export const updateProductQuantity = async (productId, newQuantity) => {
+  
+  try {
+
+      await fetch(`http://localhost:8000/products/${productId}`, {
+          method: 'PATCH',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ quantity: newQuantity }),
+      });
+      
+  } catch (error) {
+      console.error('Error updating product quantity:', error);
+      throw error;
+  }
 };

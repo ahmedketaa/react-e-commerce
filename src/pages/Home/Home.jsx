@@ -6,6 +6,27 @@ import CategoriesSection from '../../Components/CategoriesSection';
 import BestSelling from '../../Components/BestSelling';
 
 function Home() {
+  const updateProductQuantity = async (productId) => {
+    try {
+
+        await fetch(`http://localhost:8000/products/${productId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ quantity: 13 }),
+        });
+        console.log("updated");
+        
+    } catch (error) {
+        console.error('Error updating product quantity:', error);
+        throw error;
+    }
+};
+useEffect(() => {
+  // updateProductQuantity(1)
+}, [])
+
   return (
     <>
     <div className="container">

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState ,useEffect} from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Dashboard from "./pages/dashboard/dashboard";
@@ -14,7 +14,6 @@ import Footer from "./Components/Footer";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import Cart from "./pages/cart/Cart";
 import ProductsPage from "./pages/Products/ProductsPage";
-import Wishlist from "./Wishlist/Wishlist";
 
 import AllCategories from "./pages/dashboard/Categories/AllCategories";
 import CategoryForm from "./pages/dashboard/dashComponents/categoryForm";
@@ -27,7 +26,17 @@ import ContactUs from "./pages/contactUs/contactUs";
 import AboutUs from "./pages/aboutUs/aboutUs";
 import NotFoundPage from "./pages/404Page/notFound";
 import { ContextProvider } from "./Context/authContext";
+import UserList from "./pages/dashboard/users/usersList";
+import UserForm from "./pages/dashboard/users/usersForm";
+import AllUsers from "./pages/dashboard/users/allUsers";
+import Wishlist from "./pages/Wishlist/Wishlist";
+import LocalizationProvider from "./localization/langlocalization";
 import useAuth from "./hooks/useAuth";
+
+function AppContent() {
+  const location = useLocation();
+  const [locale, setLocale] = useState('en');
+
 
 function AppContent() {
   const location = useLocation();
@@ -42,6 +51,10 @@ function AppContent() {
   }, []);
   return (
     <>
+        <LocalizationProvider locale={locale}>
+        
+      {!shouldHideFooter && <NavBar  setLocale={setLocale} />}
+
       {!shouldHideFooter && <NavBar />}
 
       <Routes>
@@ -135,13 +148,27 @@ function AppContent() {
               element={<CategoryForm />}
             />
           </Route>
+          {/* nested tany  */}
+          <Route
+                path="users"
+                element={
+                    <PrivateRoute>
+                        <AllUsers />
+                    </PrivateRoute>
+                }
+            >
+                <Route index element={<UserList />} />
+                <Route path="add-user" element={<UserForm />} />
+                <Route path="update-user/:userId" element={<UserForm />} />
+            </Route>
         </Route>
       </Routes>
       {!shouldHideFooter && <Footer />}
+      </LocalizationProvider>
     </>
   );
 }
-
+}
 function App() {
   return (
     <BrowserRouter>
