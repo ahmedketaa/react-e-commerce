@@ -33,13 +33,13 @@ import Wishlist from "./pages/Wishlist/Wishlist";
 import LocalizationProvider from "./localization/langlocalization";
 import useAuth from "./hooks/useAuth";
 
+
+
+
 function AppContent() {
   const location = useLocation();
   const [locale, setLocale] = useState('en');
 
-
-function AppContent() {
-  const location = useLocation();
   const hideFooterRoutes = ["/login", "/signup", "/dashboard"];
 
   const shouldHideFooter = hideFooterRoutes.some((route) =>
@@ -55,7 +55,6 @@ function AppContent() {
         
       {!shouldHideFooter && <NavBar  setLocale={setLocale} />}
 
-      {!shouldHideFooter && <NavBar />}
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -168,7 +167,7 @@ function AppContent() {
     </>
   );
 }
-}
+
 function App() {
   return (
     <BrowserRouter>
