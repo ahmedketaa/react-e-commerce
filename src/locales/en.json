@@ -1,0 +1,11 @@
+{
+    "home": "Home",
+    "products": "Products",
+    "contact": "Contact",
+    "about": "About",
+    "signup": "Sign Up",
+    "login": "Login",
+    "dashboard": "Dashboard",
+    "hello": "Hello, {username}"
+  }
+  

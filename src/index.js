@@ -6,12 +6,15 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { store } from './ReduxToolkit/Store';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import LocalizationProvider from './localization/langlocalization';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+    <LocalizationProvider locale="en"> 
     <App />
+  </LocalizationProvider>,
     </Provider>
   </React.StrictMode>
 );

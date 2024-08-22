@@ -3,12 +3,13 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Carousel } from 'primereact/carousel';
 import { Rating } from 'primereact/rating';
 import api from '../api/products';
-import { toggleCartItem, getCart } from '../Utlities/CartServices';
+import { toggleCartItem, getCart, getCartItemsCount, updateProductQuantityAfterPurchase } from '../Utlities/CartServices';
 import { Toast } from 'primereact/toast';
 import { getWishlist, toggleWishlistItem } from '../Utlities/WishlistServices';
 import { CartContext } from '../Context/cartContext';
 import useAuth from '../hooks/useAuth';
 import { useNavigate } from 'react-router';
+import { Tag } from 'primereact/tag';
 
 export default function ProductSlider() {
     const [products, setProducts] = useState([]);
@@ -49,6 +50,7 @@ export default function ProductSlider() {
         showWishlist();
     }, [userId,cartItemCount,wishlistItemCount ]);
 
+    
     const isProductInCart = (productId) => {
         return cart.some(item => item.id === productId);
     };
@@ -56,6 +58,9 @@ export default function ProductSlider() {
     const isProductInWishlist = (productId) => {
         return wishlist?.some(item => item.id === productId);
     };
+
+
+   
 
     const handleToggleCart = (product, quantity) => {
         if(auth.user){ 
@@ -73,6 +78,11 @@ export default function ProductSlider() {
                         life: 3000
                     });
                 })
+                .then(()=> {
+                    
+                    updateProductQuantityAfterPurchase(userId,productId,quantity)
+                } 
+                )
                 .catch(error => console.error('Error toggling cart item:', error))
                 .finally(getProducts());
         }else { 
@@ -130,9 +140,19 @@ export default function ProductSlider() {
 
     const productTemplate = (product) => {
         
+        const getSeverity = (quantity) => {
+            if (quantity === 0) {
+                return 'danger'; // Out of stock
+            } else if (quantity <= 5) {
+                return 'warning'; // Low stock
+            } else {
+                return 'success'; // In stock
+            }
+        };
         const isInCart = isProductInCart(product.id);
         const isInWishlist = isProductInWishlist(product.id);
-
+        const availableQuantity = product.quantity || 0; 
+        const severity = getSeverity(availableQuantity);
         return (
             <div key={product.id} style={{ minHeight: '400px', position: 'relative' }} className="border-1 mt-2 border-round text-center px-3">
                 <div className="mb-2 rounded d-flex justify-content-center align-items-center" style={{ width: '100%', height: '250px', background: '#F5F5F5' }}>
@@ -141,15 +161,21 @@ export default function ProductSlider() {
                 <div className="p-2" style={{ textAlign: 'left' }}>
                     <h6 className="mb-1 text-bold" style={{ height: '', overflow: 'hidden' }}>{product.title}</h6>
                     <p style={{ color: '#DB4444' }} className="mt-2 mb-3">${Math.round(product.price)}</p>
+                    
                     <div className="mt-2 d-flex custom-rating flex-wrap gap-2">
                         <Rating value={Math.ceil(product.rating.rate)} readOnly disabled cancel={false} />({product.rating.count})
                     </div>
+                    <p className='mt-2'>
+                          <Tag
+                        severity={severity}
+                        value={severity==='success'? "INSTOCK": severity==='warning'?"LOWSTOCK":"OUTOFSTOCK"}
+                    /></p>
                     <i 
-                        className={`pi pi-heart custom-heart-icon ${isInWishlist ? 'in-cart' : ''}`}
+                        className={`pi pi-heart custom-heart-icon ${isInWishlist &&auth?.user ? 'in-cart' : ''}`}
                         onClick={() => handleToggleWishlist(product)}
                     ></i>
                     <i
-                        className={`pi pi-shopping-cart custom-heart-icon ${isInCart ? 'in-cart' : ''}`}
+                        className={`pi pi-shopping-cart custom-heart-icon ${isInCart &&auth?.user  ? 'in-cart' : ''}`}
                         style={{ top: '55px' }}
                         onClick={() => handleToggleCart(product, 1)}
                     ></i>

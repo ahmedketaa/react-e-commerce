@@ -18,6 +18,7 @@ function Sidebar() {
           <NavLink to="products" className="nav-link">
             <i className="bi bi-house-door-fill"></i> Products
           </NavLink>
+          </li>
           <li>
             <NavLink to="addproduct" className="nav-link">
               <i className="bi bi-bag-fill"></i> add product
@@ -28,7 +29,11 @@ function Sidebar() {
               Categories
             </NavLink>
           </li>
-        </li>
+          <li>
+            <NavLink to="users" className="nav-link">
+              Users
+            </NavLink>
+          </li>
         <li>
           <NavLink to="orders" className="nav-link">
             <i className="bi bi-bag-fill"></i> Orders
