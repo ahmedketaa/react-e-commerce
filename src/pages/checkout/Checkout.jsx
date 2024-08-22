@@ -3,6 +3,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { clearCart, getCart } from '../../Utlities/CartServices';
 import MainButton from '../../ReusableComponents/MainButton';
 import { Toast } from 'primereact/toast';
+import useAuth from '../../hooks/useAuth';
 
 
 const stripePromise = loadStripe('pk_test_51Pocw9P8naSBg9OwVJjLj7L2MG3b9atQH3bkeFb3tCgMVgHQsnF9oNYwlBInor962LGIgZXzc63vt21tOOVF63EZ00Zeg3G3K5');
@@ -28,7 +29,9 @@ export default function Checkout() {
     const [discount, setDiscount] = useState(0);
     const [errors, setErrors] = useState({});
     const toast = React.useRef(null);
-    const userId = 3863;
+    const { auth, logOut } = useAuth();
+
+    const userId = JSON.parse(localStorage.getItem("active-user")).id
 
     useEffect(() => {
         getCart(userId).then(data => {

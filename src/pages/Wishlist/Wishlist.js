@@ -5,11 +5,14 @@ import { faHeart, faX } from "@fortawesome/free-solid-svg-icons";
 import { toggleCartItem } from "../../Utlities/CartServices";
 import { CartContext } from "../../Context/cartContext";
 import { getWishlist, toggleWishlistItem } from "../../Utlities/WishlistServices";
+import useAuth from "../../hooks/useAuth";
 
 function Wishlist() {
   const [wishlist, setWishlist] = useState([]);
   const { updateCartCount } = useContext(CartContext);
-  const userId = 3863;
+  const { auth, logOut } = useAuth();
+
+  const userId = JSON.parse(localStorage.getItem("active-user")).id
 
   useEffect(() => {
     getWishlist(userId)

@@ -31,7 +31,7 @@ function ProductsPage() {
   const { updateWishlistCount, updateCartCount } = useContext(CartContext);
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const userId = auth?.user?.id;
+  const userId = JSON.parse(localStorage.getItem("active-user")).id
 
   useEffect(() => {
     axios

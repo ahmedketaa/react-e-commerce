@@ -19,8 +19,10 @@ export default function ProductSlider() {
     const { updateCartCount, updateWishlistCount } = useContext(CartContext);
     const { cartItemCount, wishlistItemCount } = useContext(CartContext);
     const { auth } = useAuth()
+    console.log(JSON.parse(localStorage.getItem("active-user")).id);
+     localStorage.getItem("active-user")    
     const navigate = useNavigate()
-    const userId = auth?.user?.id;
+    const userId = JSON.parse(localStorage.getItem("active-user")).id
 
     const getProducts = () => {
         api.get('/products').then(res => {
