@@ -279,15 +279,6 @@
       "role": "admin",
       "cart": [],
       "wishlist": []
-    },
-    {
-      "id": "96bd",
-      "username": "user",
-      "email": "user@gmail.com",
-      "password": "1234567",
-      "role": "user",
-      "cart": [],
-      "wishlist": []
     }
   ],
   "orders": [
