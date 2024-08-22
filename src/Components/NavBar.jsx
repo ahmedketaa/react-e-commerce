@@ -43,7 +43,7 @@ function NavBar() {
               <Link className="nav-link" to="/login">Login</Link>
             </li>}
             { 
-              auth?.user?.role == "admin" ? <li className="nav-item">
+              auth?.user?.role === "admin" ? <li className="nav-item">
               <Link className="nav-link text-primary" to="/dashboard">Dashboard</Link>
             </li> : ""
             }

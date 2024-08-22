@@ -149,7 +149,8 @@ function Signup() {
   const { auth } = useAuth();
   useEffect(() => {
     auth?.user && navigate("/");
-  }, []);
+  }, [auth?.user]);
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
