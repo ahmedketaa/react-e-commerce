@@ -5,13 +5,15 @@ import { Toast } from 'primereact/toast';
 import { CartContext } from '../../Context/cartContext';
 import { getProductById } from '../../Utlities/ProductServices';
 import { confirmDialog, ConfirmDialog } from 'primereact/confirmdialog';
+import useAuth from '../../hooks/useAuth';
 
 export default function Cart() {
     const [cartItems, setCartItems] = useState([]);
     const toast = useRef(null);
     const [quantity, setQuantity] = useState(false);
     const { updateCartCount } = useContext(CartContext);
-    const userId = 3863; 
+    const { auth } = useAuth()
+    const userId = auth?.user.id; 
     const navigate = useNavigate(); 
 
     useEffect(() => {

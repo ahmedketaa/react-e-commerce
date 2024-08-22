@@ -12,8 +12,8 @@ import {
 import { toggleCartItem, getCart } from "../../Utlities/CartServices";
 import { Toast } from "react-bootstrap";
 import { CartContext } from "../../Context/cartContext";
-// import useAuth from "../../hooks/useAuth";
-// import { useNavigate } from "react-router";
+import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router";
 
 function ProductsPage() {
   const dispatch = useDispatch();
@@ -29,9 +29,9 @@ function ProductsPage() {
   const [wishlist, setWishlist] = useState([]);
   const [cart, setCart] = useState([]);
   const { updateWishlistCount, updateCartCount } = useContext(CartContext);
-  // const { auth } = useAuth();
-  // const navigate = useNavigate();
-  const userId = 3863;
+  const { auth } = useAuth();
+  const navigate = useNavigate();
+  const userId = auth?.user?.id;
 
   useEffect(() => {
     axios
@@ -65,15 +65,17 @@ function ProductsPage() {
   };
 
   const handleToggleWishlist = (product) => {
-    // if(auth.user) {
-    toggleWishlistItem(userId, product)
-      .then(() => getWishlist(userId))
-      .then(setWishlist)
-      .then(updateWishlistCount)
-      .catch((error) => console.error("Error toggling wishlist item:", error));
-    // } else {
-    //   navigate("/login");
-    // }
+    if (auth.user) {
+      toggleWishlistItem(userId, product)
+        .then(() => getWishlist(userId))
+        .then(setWishlist)
+        .then(updateWishlistCount)
+        .catch((error) =>
+          console.error("Error toggling wishlist item:", error)
+        );
+    } else {
+      navigate("/login");
+    }
   };
 
   const isProductInCart = (productId) => {
@@ -81,19 +83,19 @@ function ProductsPage() {
   };
 
   const handleToggleCart = (product, quantity) => {
-    // if(auth.user) {
-    toggleCartItem(userId, product, quantity)
-      .then(() => getCart(userId))
-      .then(setCart)
-      .then(updateCartCount)
-      .catch((error) => console.error("Error toggling cart item:", error));
-    // } else {
-    //   navigate("/login");
-    // }
+    if (auth.user) {
+      toggleCartItem(userId, product, quantity)
+        .then(() => getCart(userId))
+        .then(setCart)
+        .then(updateCartCount)
+        .catch((error) => console.error("Error toggling cart item:", error));
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
-    <div className="container">
+    <>
       <div className="bg-light w-50 mt-5 mx-auto">
         <input
           onChange={(e) => setSearch(e.target.value)}
@@ -108,7 +110,8 @@ function ProductsPage() {
         <span style={{ fontWeight: "500" }}>Price Order:</span>
         <select
           onChange={(e) => handlePrice(e)}
-          className="custom-select selectPrice">
+          className="custom-select selectPrice"
+        >
           <option selected>Price</option>
           <option value="descending">Descending</option>
           <option value="ascending">Ascending</option>
@@ -140,7 +143,7 @@ function ProductsPage() {
             </div>
           ))}
       </div>
-    </div>
+    </>
   );
 }
 

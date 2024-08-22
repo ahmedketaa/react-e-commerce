@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Dashboard from "./pages/dashboard/dashboard";
@@ -31,22 +31,31 @@ import UserForm from "./pages/dashboard/users/usersForm";
 import AllUsers from "./pages/dashboard/users/allUsers";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import LocalizationProvider from "./localization/langlocalization";
+import useAuth from "./hooks/useAuth";
 
 function AppContent() {
   const location = useLocation();
   const [locale, setLocale] = useState('en');
 
+
+function AppContent() {
+  const location = useLocation();
   const hideFooterRoutes = ["/login", "/signup", "/dashboard"];
 
   const shouldHideFooter = hideFooterRoutes.some((route) =>
     location.pathname.startsWith(route)
   );
-
+  const { checkLocalAuth } = useAuth();
+  useEffect(() => {
+    checkLocalAuth();
+  }, []);
   return (
     <>
         <LocalizationProvider locale={locale}>
         
       {!shouldHideFooter && <NavBar  setLocale={setLocale} />}
+
+      {!shouldHideFooter && <NavBar />}
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -159,7 +168,7 @@ function AppContent() {
     </>
   );
 }
-
+}
 function App() {
   return (
     <BrowserRouter>

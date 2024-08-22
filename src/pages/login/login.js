@@ -27,10 +27,10 @@ function Login() {
   const location = useLocation();
   const from = location?.state?.pathname || "/";
 
-  //navigate to home if you logged in
+  // navigate to home if you logged in
   useEffect(() => {
     auth?.user && navigate("/");
-  }, []);
+  }, [navigate, auth?.user]);
 
   // Handle Change Input
   const handleForm = (e) => {
@@ -77,6 +77,7 @@ function Login() {
     }
   };
 
+  //Check if the form is valid
   const isFormValid = () => {
     return !errors.emailErr && !errors.passErr && user.email && user.password;
   };
@@ -103,13 +104,15 @@ function Login() {
     if (isFormValid()) {
       let checkEmailFound = await checkEmail(user.email);
       if (checkEmailFound) {
-        if (foundedUser.password == user.password) {
+        if (foundedUser.password === user.password) {
           setSuccessMsg("Login Successful");
           setErrorMsg("");
           setAuth({ user: foundedUser });
-          navigate(from, { replace: true });
+          localStorage.setItem("active-user", JSON.stringify(foundedUser));
+          setTimeout(() => {
+            navigate(from, { replace: true });
+          }, 2000);
         } else {
-          console.log("email is not founded");
           setErrorMsg("Email or Password is invalid");
           setSuccessMsg("");
           setErrors({
@@ -119,7 +122,6 @@ function Login() {
           });
         }
       } else {
-        console.log("email is not founded");
         setErrorMsg("Email or Password is invalid");
         setSuccessMsg("");
         setErrors({

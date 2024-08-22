@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import api from "../../../api/products";
 
-function AddProduct() {
+function EditProduct() {
   const [product, setProduct] = useState({
     title: "",
     price: "",
@@ -14,20 +14,7 @@ function AddProduct() {
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [category, setCategory] = useState([]);
 
-  const fetchCategory = async () => {
-    try {
-      const response = await api.get("/categories");
-      setCategory(response.data);
-    } catch (error) {
-      console.error("faild to fetch category", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchCategory();
-  }, []);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
@@ -149,9 +136,10 @@ function AddProduct() {
               required
             >
               <option value="">Select Category</option>
-              {category.map((single) => {
-                return <option value={single.name}>{single.name}</option>;
-              })}
+              <option value="men's clothing">Men's Clothing</option>
+              <option value="women's clothing">Women's Clothing</option>
+              <option value="electronics">Electronics</option>
+              <option value="jewelery">Jewelery</option>
             </select>
             {errors.category && (
               <div className="invalid-feedback position-absolute">
@@ -252,4 +240,4 @@ function AddProduct() {
   );
 }
 
-export default AddProduct;
+export default EditProduct;
