@@ -3,13 +3,15 @@ import { useNavigate } from 'react-router-dom'; // For navigation
 import { getCart, toggleCartItem, updateCartItem } from '../../Utlities/CartServices';
 import { Toast } from 'primereact/toast';
 import { CartContext } from '../../Context/cartContext';
+import useAuth from '../../hooks/useAuth';
 
 export default function Cart() {
     const [cartItems, setCartItems] = useState([]);
     const toast = useRef(null);
     const [quantity, setQuantity] = useState(false);
     const { updateCartCount } = useContext(CartContext);
-    const userId = 1; 
+    const { auth } = useAuth()
+    const userId = auth?.user.id; 
     const navigate = useNavigate(); 
 
     useEffect(() => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Dashboard from "./pages/dashboard/dashboard";
@@ -27,16 +27,19 @@ import ContactUs from "./pages/contactUs/contactUs";
 import AboutUs from "./pages/aboutUs/aboutUs";
 import NotFoundPage from "./pages/404Page/notFound";
 import { ContextProvider } from "./Context/authContext";
+import useAuth from "./hooks/useAuth";
 
 function AppContent() {
   const location = useLocation();
-
   const hideFooterRoutes = ["/login", "/signup", "/dashboard"];
 
   const shouldHideFooter = hideFooterRoutes.some((route) =>
     location.pathname.startsWith(route)
   );
-
+  const { checkLocalAuth } = useAuth();
+  useEffect(() => {
+    checkLocalAuth();
+  }, []);
   return (
     <>
       {!shouldHideFooter && <NavBar />}

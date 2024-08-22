@@ -17,9 +17,9 @@ export default function ProductSlider() {
     const toast = useRef(null);
     const { updateCartCount, updateWishlistCount } = useContext(CartContext);
     const { cartItemCount, wishlistItemCount } = useContext(CartContext);
-    const {auth } = useAuth()
+    const { auth } = useAuth()
     const navigate = useNavigate()
-    const userId = 1;
+    const userId = auth?.user?.id;
 
     const getProducts = () => {
         api.get('/products').then(res => {
@@ -29,6 +29,7 @@ export default function ProductSlider() {
 
     useEffect(() => {
         getProducts();
+        // console.log(userId)
     }, []);
 
     const showCart = () => {
