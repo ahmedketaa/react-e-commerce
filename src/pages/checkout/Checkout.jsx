@@ -28,7 +28,7 @@ export default function Checkout() {
     const [discount, setDiscount] = useState(0);
     const [errors, setErrors] = useState({});
     const toast = React.useRef(null);
-    const userId = 1;
+    const userId = 3863;
 
     useEffect(() => {
         getCart(userId).then(data => {
@@ -78,7 +78,6 @@ export default function Checkout() {
             totalPrice: (parseFloat(totalPrice) - discount).toFixed(2),
             shippingDetails: formData,
         };
-
         try {
             const response = await fetch('http://localhost:8000/orders', {
                 method: 'POST',
@@ -95,9 +94,6 @@ export default function Checkout() {
             const order = await response.json();
             toast.current.show({ severity: 'success', summary: 'order placed', detail: `Order placed successfully`, life: 3000 });
 
-
-
-            
                 clearCart(userId)
            
             const stripe = await stripePromise;

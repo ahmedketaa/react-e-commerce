@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./login.css";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import api from "../../api/products";
+import useAuth from "../../hooks/useAuth";
 
 function Login() {
   // Regex
-  const emailPattern = /^[\w-\d]+@([\w-]+\.)+[\w-]{2,4}$/;
+  const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
   // Handle User
   const [user, setUser] = useState({
@@ -18,6 +21,16 @@ function Login() {
     emailErrStyle: "",
     passErrStyle: "",
   });
+
+  const { auth, setAuth } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.pathname || "/";
+
+  //navigate to home if you logged in
+  useEffect(() => {
+    auth?.user && navigate("/");
+  }, []);
 
   // Handle Change Input
   const handleForm = (e) => {
@@ -64,6 +77,60 @@ function Login() {
     }
   };
 
+  const isFormValid = () => {
+    return !errors.emailErr && !errors.passErr && user.email && user.password;
+  };
+
+  const [successMsg, setSuccessMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  let foundedUser = null;
+
+  const checkEmail = async (email) => {
+    try {
+      let response = await api.get(`/users?email=${email}`);
+      foundedUser = await response.data[0];
+
+      return response.data.length > 0;
+    } catch (err) {
+      console.error("Error checking email", err);
+      return false;
+    }
+  };
+
+  //Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (isFormValid()) {
+      let checkEmailFound = await checkEmail(user.email);
+      if (checkEmailFound) {
+        if (foundedUser.password == user.password) {
+          setSuccessMsg("Login Successful");
+          setErrorMsg("");
+          setAuth({ user: foundedUser });
+          navigate(from, { replace: true });
+        } else {
+          console.log("email is not founded");
+          setErrorMsg("Email or Password is invalid");
+          setSuccessMsg("");
+          setErrors({
+            ...errors,
+            emailErrStyle: "is-invalid",
+            passErrStyle: "is-invalid",
+          });
+        }
+      } else {
+        console.log("email is not founded");
+        setErrorMsg("Email or Password is invalid");
+        setSuccessMsg("");
+        setErrors({
+          ...errors,
+          emailErrStyle: "is-invalid",
+          passErrStyle: "is-invalid",
+        });
+      }
+    }
+  };
+
   // Show and Hide Password
   const [showHide, setShowHide] = useState("password");
   const handleShowHide = (e) => {
@@ -74,11 +141,19 @@ function Login() {
     <div className="body container-fluid">
       <div className="text-center p-2 mb-2 bg-info bg-opacity-10 border border-success border-start rounded">
         <i className="text-danger fa-solid fa-sort-down"></i>
-        <h3 className="text-warning">Gaza Store</h3>
+        <Link
+          style={{ textDecoration: "none" }}
+          to="/"
+          className="text-warning"
+        >
+          <h3>Gaza Store</h3>
+        </Link>
       </div>
       <div className="p-5 form card shadow-lg col-lg-4 col-md-6 col-sm-12 p-4">
         <h4 className="mb-4 text-center">Sign in</h4>
-        <form>
+        {successMsg && <div className="alert alert-success">{successMsg}</div>}
+        {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
+        <form onSubmit={handleSubmit}>
           {/* email */}
           <div className="mb-5">
             <input
@@ -118,16 +193,20 @@ function Login() {
               <small>{errors.passErr}</small>
             </div>
           </div>
-          <button type="submit" className="w-100 btn btn-primary">
+          <button
+            disabled={!isFormValid()}
+            type="submit"
+            className="w-100 btn btn-primary"
+          >
             Login
           </button>
         </form>
       </div>
       <hr className="bg-light w-50" style={{ height: "2px" }} />
       <div className="bg-light col-lg-4 rounded text-center">
-        <button className="w-100 btn btn-success text-center">
+        <Link to="/signup" className="w-100 btn btn-success text-center">
           create new account
-        </button>
+        </Link>
       </div>
     </div>
   );

@@ -1,8 +1,9 @@
 import api from '../api/products'; 
+import { getProductById, updateProductQuantity } from './ProductServices';
 
 
 
-export const getCart = (userId) => {
+export const getCart =async (userId) => {
     return api.get(`/users/${userId}`)
       .then(response => response.data.cart)
       .catch(error => {
@@ -12,12 +13,31 @@ export const getCart = (userId) => {
   };
 
   export const getCartItemsCount = async (userId) => {
-    
     const cartItems = await getCart(userId);
     const totalCount = cartItems.reduce((total, item) => total + item.quantity, 0);
-
     return totalCount;
   };
+
+  export const updateProductQuantityAfterPurchase = async (userId, productId, delta) => {
+   
+
+    try {
+
+        const productResponse = await getProductById(productId);
+        const productQuantity = productResponse.quantity;
+
+        const newQuantity = productQuantity - delta;
+
+        await updateProductQuantity(productId, newQuantity);
+
+        return { productId, newQuantity };
+    } catch (error) {
+        console.error('Error updating product quantity after purchase:', error);
+        throw error;
+    }
+};
+
+
   export const toggleCartItem =async (userId, product, quantity) => {
     return api.get(`/users/${userId}`)
       .then(response => {
