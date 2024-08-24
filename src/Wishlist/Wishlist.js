@@ -11,7 +11,7 @@ function Wishlist() {
   const [wishlist, setWishlist] = useState([]);
   const { updateCartCount } = useContext(CartContext);
   const { auth } = useAuth();
-  const userId = auth?.user?.id;
+  const userId = JSON.parse(localStorage.getItem("active-user"))&& JSON.parse(localStorage.getItem("active-user")).id;
 
   useEffect(() => {
     getWishlist(userId)

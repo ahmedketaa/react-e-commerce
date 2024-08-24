@@ -4,6 +4,10 @@ import { getProductById, updateProductQuantity } from './ProductServices';
 
 
 export const getCart =async (userId) => {
+  if (!userId) {
+    // console.error('User ID is missing');
+    return []; 
+  }
     return api.get(`/users/${userId}`)
       .then(response => response.data.cart)
       .catch(error => {

@@ -13,7 +13,9 @@ export default function Cart() {
     const [quantity, setQuantity] = useState(false);
     const { updateCartCount } = useContext(CartContext);
     const { auth } = useAuth()
-    const userId = auth?.user.id; 
+    const userId = auth.user.id
+    console.log("hii",userId);
+    
     const navigate = useNavigate(); 
 
     useEffect(() => {

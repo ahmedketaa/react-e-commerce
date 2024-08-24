@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Carousel } from 'primereact/carousel';
 import { Rating } from 'primereact/rating';
 import api from '../api/products';
-import { toggleCartItem, getCart, getCartItemsCount, updateProductQuantityAfterPurchase } from '../Utlities/CartServices';
+import { toggleCartItem, getCart, updateProductQuantityAfterPurchase } from '../Utlities/CartServices';
 import { Toast } from 'primereact/toast';
 import { getWishlist, toggleWishlistItem } from '../Utlities/WishlistServices';
 import { CartContext } from '../Context/cartContext';
@@ -17,21 +17,17 @@ export default function ProductSlider() {
     const [wishlist, setWishlist] = useState([]);
     const toast = useRef(null);
     const { updateCartCount, updateWishlistCount } = useContext(CartContext);
-    const { cartItemCount, wishlistItemCount } = useContext(CartContext);
     const { auth } = useAuth()
+     localStorage.getItem("active-user")    
     const navigate = useNavigate()
-    const userId = auth?.user?.id;
-
+    const userId = JSON.parse(localStorage.getItem("active-user"))&& JSON.parse(localStorage.getItem("active-user")).id;
+    
     const getProducts = () => {
         api.get('/products').then(res => {
             setProducts(res.data);
         }).catch(err => console.log(err));
     };
 
-    useEffect(() => {
-        getProducts();
-        // console.log(userId)
-    }, []);
 
     const showCart = () => {
         getCart(userId).then(data => {
@@ -45,10 +41,12 @@ export default function ProductSlider() {
         }).catch(error => console.error('Error fetching wishlist:', error));
     };
 
+  
     useEffect(() => {
+        getProducts();
         showCart();
         showWishlist();
-    }, [userId,cartItemCount,wishlistItemCount ]);
+    }, []);
 
     
     const isProductInCart = (productId) => {

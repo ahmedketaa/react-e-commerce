@@ -9,7 +9,9 @@ import { getWishlist, toggleWishlistItem } from "../../Utlities/WishlistServices
 function Wishlist() {
   const [wishlist, setWishlist] = useState([]);
   const { updateCartCount } = useContext(CartContext);
-  const userId = 3863;
+  // const { auth, logOut } = useAuth();
+
+  const userId = JSON.parse(localStorage.getItem("active-user"))&& JSON.parse(localStorage.getItem("active-user")).id;
 
   useEffect(() => {
     getWishlist(userId)
@@ -17,7 +19,7 @@ function Wishlist() {
         setWishlist(data);
       })
       .catch((err) => console.error(err));
-  }, [updateCartCount]);
+  }, [updateCartCount,userId]);
 
   const handleAddToCart = (product) => {
     toggleCartItem(userId, product, 1)

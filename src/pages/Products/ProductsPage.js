@@ -10,7 +10,6 @@ import {
   toggleWishlistItem,
 } from "../../Utlities/WishlistServices";
 import { toggleCartItem, getCart } from "../../Utlities/CartServices";
-import { Toast } from "react-bootstrap";
 import { CartContext } from "../../Context/cartContext";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router";
@@ -31,7 +30,7 @@ function ProductsPage() {
   const { updateWishlistCount, updateCartCount } = useContext(CartContext);
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const userId = auth?.user?.id;
+  const userId = JSON.parse(localStorage.getItem("active-user"))&& JSON.parse(localStorage.getItem("active-user")).id;
 
   useEffect(() => {
     axios

@@ -6,10 +6,9 @@ export const ContextProvider = ({ children }) => {
   let [auth, setAuth] = useState({});
 
   const checkLocalAuth = () => {
-    let activeUser =
-      localStorage.getItem("active-user") &&
+    let activeUser = localStorage.getItem("active-user") &&
       JSON.parse(localStorage.getItem("active-user"));
-    setAuth({ user: activeUser });
+      setAuth({ user: activeUser });
   };
   const logOut = () => {
     setAuth({});
