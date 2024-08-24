@@ -9,7 +9,7 @@ function Home() {
   const updateProductQuantity = async (productId) => {
     try {
 
-        await fetch(`http://localhost:8000/products/${productId}`, {
+        await fetch(`https://react-e-commerce-json-server-jhau.vercel.app/products/${productId}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

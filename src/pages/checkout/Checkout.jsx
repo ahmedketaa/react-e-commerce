@@ -3,7 +3,6 @@ import { loadStripe } from '@stripe/stripe-js';
 import { clearCart, getCart } from '../../Utlities/CartServices';
 import MainButton from '../../ReusableComponents/MainButton';
 import { Toast } from 'primereact/toast';
-import useAuth from '../../hooks/useAuth';
 
 
 const stripePromise = loadStripe('pk_test_51Pocw9P8naSBg9OwVJjLj7L2MG3b9atQH3bkeFb3tCgMVgHQsnF9oNYwlBInor962LGIgZXzc63vt21tOOVF63EZ00Zeg3G3K5');
@@ -29,9 +28,8 @@ export default function Checkout() {
     const [discount, setDiscount] = useState(0);
     const [errors, setErrors] = useState({});
     const toast = React.useRef(null);
-    const { auth, logOut } = useAuth();
 
-    const userId = JSON.parse(localStorage.getItem("active-user")).id
+    const userId = JSON.parse(localStorage.getItem("active-user"))&& JSON.parse(localStorage.getItem("active-user")).id;
 
     useEffect(() => {
         getCart(userId).then(data => {
@@ -82,7 +80,7 @@ export default function Checkout() {
             shippingDetails: formData,
         };
         try {
-            const response = await fetch('http://localhost:8000/orders', {
+            const response = await fetch('https://react-e-commerce-json-server-jhau.vercel.app/orders', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -94,7 +92,7 @@ export default function Checkout() {
                 throw new Error('Network response was not ok.');
             }
 
-            const order = await response.json();
+            // const order = await response.json();
             toast.current.show({ severity: 'success', summary: 'order placed', detail: `Order placed successfully`, life: 3000 });
 
                 clearCart(userId)

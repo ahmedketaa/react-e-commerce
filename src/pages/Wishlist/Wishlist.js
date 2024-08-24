@@ -5,14 +5,13 @@ import { faHeart, faX } from "@fortawesome/free-solid-svg-icons";
 import { toggleCartItem } from "../../Utlities/CartServices";
 import { CartContext } from "../../Context/cartContext";
 import { getWishlist, toggleWishlistItem } from "../../Utlities/WishlistServices";
-import useAuth from "../../hooks/useAuth";
 
 function Wishlist() {
   const [wishlist, setWishlist] = useState([]);
   const { updateCartCount } = useContext(CartContext);
-  const { auth, logOut } = useAuth();
+  // const { auth, logOut } = useAuth();
 
-  const userId = JSON.parse(localStorage.getItem("active-user")).id
+  const userId = JSON.parse(localStorage.getItem("active-user"))&& JSON.parse(localStorage.getItem("active-user")).id;
 
   useEffect(() => {
     getWishlist(userId)
@@ -20,7 +19,7 @@ function Wishlist() {
         setWishlist(data);
       })
       .catch((err) => console.error(err));
-  }, [updateCartCount]);
+  }, [updateCartCount,userId]);
 
   const handleAddToCart = (product) => {
     toggleCartItem(userId, product, 1)

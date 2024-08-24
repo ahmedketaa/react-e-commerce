@@ -1,6 +1,10 @@
 import api from '../api/products'; 
 
-export const getWishlist = (userId) => {
+export const getWishlist = async(userId) => {
+  if (!userId) {
+    // console.error('User ID is missing');
+    return []; 
+  }
     return api.get(`/users/${userId}`)
       .then(response => response.data.wishlist)
       .catch(error => {

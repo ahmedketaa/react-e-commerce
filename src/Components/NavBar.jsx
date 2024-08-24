@@ -10,10 +10,9 @@ import { Dropdown } from 'react-bootstrap';
 
 function NavBar({ setLocale }) {
   const { auth, logOut } = useAuth();
-
-  const { cartItemCount, wishlistItemCount } = useContext(CartContext);
-  console.log(cartItemCount);
   
+
+  const { cartItemCount, wishlistItemCount } = useContext(CartContext);  
   const intl = useIntl();
 
   return (
