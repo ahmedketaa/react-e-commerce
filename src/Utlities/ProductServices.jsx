@@ -5,7 +5,7 @@ export const getProducts = () => {
 };
 
 export const getProductById =async (id) => {
-  return fetch(`https://react-e-commerce-json-server-jhau.vercel.app/${id}`)
+  return fetch(`https://react-e-commerce-json-server-jhau.vercel.app/products/${id}`)
     .then(response => response.json())
     .then(data => {
       return data;
