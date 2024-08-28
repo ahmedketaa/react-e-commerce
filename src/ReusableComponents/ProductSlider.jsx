@@ -17,6 +17,8 @@ export default function ProductSlider() {
     const [wishlist, setWishlist] = useState([]);
     const toast = useRef(null);
     const { updateCartCount, updateWishlistCount } = useContext(CartContext);
+    const { cartItemCount, wishlistItemCount } = useContext(CartContext);
+
     const { auth } = useAuth()
      localStorage.getItem("active-user")    
     const navigate = useNavigate()
@@ -28,6 +30,9 @@ export default function ProductSlider() {
         }).catch(err => console.log(err));
     };
 
+    useEffect(() => {
+        getProducts();
+    }, []);
 
     const showCart = () => {
         getCart(userId).then(data => {
@@ -41,13 +46,10 @@ export default function ProductSlider() {
         }).catch(error => console.error('Error fetching wishlist:', error));
     };
 
-  
     useEffect(() => {
-        getProducts();
         showCart();
         showWishlist();
-    }, []);
-
+    }, [userId,cartItemCount,wishlistItemCount ]);
     
     const isProductInCart = (productId) => {
         return cart.some(item => item.id === productId);

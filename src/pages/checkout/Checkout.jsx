@@ -80,7 +80,7 @@ export default function Checkout() {
             shippingDetails: formData,
         };
         try {
-            const response = await fetch('https://react-e-commerce-json-server-jhau.vercel.app/orders', {
+            const response = await fetch('http://localhost:8000/orders', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
