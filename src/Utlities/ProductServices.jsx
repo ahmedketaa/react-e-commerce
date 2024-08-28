@@ -5,7 +5,7 @@ export const getProducts = () => {
 };
 
 export const getProductById =async (id) => {
-  return fetch(`https://react-e-commerce-json-server-jhau.vercel.app/products/${id}`)
+  return fetch(`https://react-e-commerce-json-server-jhau.vercel.app/${id}`)
     .then(response => response.json())
     .then(data => {
       return data;
@@ -33,7 +33,7 @@ export const updateProductQuantity = async (productId, newQuantity) => {
   
   try {
 
-      await fetch(`https://react-e-commerce-json-server-jhau.vercel.app/products/${productId}`, {
+      await fetch(`https://react-e-commerce-json-server-jhau.vercel.app/${productId}`, {
           method: 'PATCH',
           headers: {
               'Content-Type': 'application/json',
