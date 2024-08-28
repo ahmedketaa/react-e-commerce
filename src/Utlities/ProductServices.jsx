@@ -33,7 +33,7 @@ export const updateProductQuantity = async (productId, newQuantity) => {
   
   try {
 
-      await fetch(`https://react-e-commerce-json-server-jhau.vercel.app/${productId}`, {
+      await fetch(`https://react-e-commerce-json-server-jhau.vercel.app/products/${productId}`, {
           method: 'PATCH',
           headers: {
               'Content-Type': 'application/json',
